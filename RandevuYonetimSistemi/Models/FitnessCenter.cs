@@ -4,6 +4,7 @@
     {
         //Spor Salonlarının tabloları için gerekli şeyler oluşturulmuştur.Bazı değerlerin boş geçilemeyeceği özellikle belirtilmiştir.
         public int Id { get; set; }
+        //Aşağıda bekirtildiği gibi bazı değerler null olamaz.
         public string Name { get; set; } = null!;
         public string Adress { get; set; } = null!;
         public string Phone { get; set; } = null!;
