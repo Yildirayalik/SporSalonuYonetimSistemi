@@ -5,6 +5,7 @@
         public int Id { get; set; }
 
         public int TrainerId { get; set; }
+        //Boş olarak doldurulmayacağını anlatır
         public Trainer Trainer { get; set; } = null!;
 
         public DayOfWeek DayOfWeek { get; set; } // Pazartesi, Salı vb.
