@@ -1,0 +1,15 @@
+﻿@model RandevuYonetimSistemi.Models.Entities.Trainer
+@{
+    ViewData["Title"] = "Antrenör Sil";
+}
+<h2>Antrenör Sil</h2>
+
+<div class="alert alert-warning">
+    <b>@Model.FullName</b> antrenörünü silmek istiyor musun?
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="btn btn-danger">Sil</button>
+    <a class="btn btn-secondary" asp-action="Index">Vazgeç</a>
+</form>

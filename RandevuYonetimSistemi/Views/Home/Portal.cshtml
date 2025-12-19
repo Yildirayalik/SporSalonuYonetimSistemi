@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Giriş Portalı";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h2>Fitness Center Yönetim Sistemi</h2>
+        <p class="text-muted">Lütfen giriş türünü seçin.</p>
+    </div>
+
+    <div class="row justify-content-center g-3">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h4>Admin Girişi</h4>
+                    <p class="text-muted">Randevular, antrenörler, hizmetler ve onay işlemleri.</p>
+                    <a class="btn btn-dark w-100"
+                       asp-controller="Auth" asp-action="Login"
+                       asp-route-returnUrl="/Admin">
+                        Admin Giriş
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h4>Üye Girişi</h4>
+                    <p class="text-muted">Randevu al, hizmet/antrenör seç, başvurunu gönder.</p>
+
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-primary w-100"
+                           asp-controller="Auth" asp-action="Login"
+                           asp-route-returnUrl="/Member">
+                            Üye Giriş
+                        </a>
+
+                        <a class="btn btn-outline-primary w-100"
+                           asp-controller="Auth" asp-action="Register"
+                           asp-route-returnUrl="/Member">
+                            Üye Kayıt
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

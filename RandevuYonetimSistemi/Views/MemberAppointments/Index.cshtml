@@ -1,0 +1,79 @@
+﻿@using RandevuYonetimSistemi.Models.Entities
+@model List<Appointment>
+
+@{
+    ViewData["Title"] = "Randevularım";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Randevularım</h2>
+    <a class="btn btn-primary" asp-action="Create">Yeni Randevu</a>
+</div>
+
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>Tarih</th>
+            <th>Saat</th>
+            <th>Eğitmen</th>
+            <th>Hizmet</th>
+            <th>Süre</th>
+            <th>Ücret</th>
+            <th>Durum</th>
+            <th style="width:220px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.StartAt.ToString("dd.MM.yyyy")</td>
+                <td>@a.StartAt.ToString("HH:mm") - @a.EndAt.ToString("HH:mm")</td>
+                <td>@a.TrainerNameSnapshot</td>
+                <td>@a.ServiceNameSnapshot</td>
+                <td>@a.DurationMinutesSnapshot dk</td>
+                <td>@a.PriceSnapshot ₺</td>
+                <td>
+                    @switch (a.Status)
+                    {
+                        case AppointmentStatus.Pending:
+                            <span class="badge bg-warning text-dark">Onay Bekliyor</span>
+                            break;
+                        case AppointmentStatus.Approved:
+                            <span class="badge bg-success">Onaylandı</span>
+                            break;
+                        case AppointmentStatus.Rejected:
+                            <span class="badge bg-danger">Reddedildi</span>
+                            break;
+                        case AppointmentStatus.Cancelled:
+                            <span class="badge bg-secondary">İptal</span>
+                            break;
+                    }
+                    @if (!string.IsNullOrWhiteSpace(a.DecisionNote))
+                    {
+                        <div class="text-muted small mt-1">Not: @a.DecisionNote</div>
+                    }
+                </td>
+
+                <td class="text-end">
+                    @if (a.Status == AppointmentStatus.Pending)
+                    {
+                        <a class="btn btn-sm btn-outline-primary" asp-action="Edit" asp-route-id="@a.Id">Düzenle</a>
+
+                        <form asp-action="Cancel" asp-route-id="@a.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('Randevu isteğini iptal etmek istiyor musun?')">
+                                İptal
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-muted">-</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

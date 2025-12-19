@@ -1,0 +1,36 @@
+﻿@using RandevuYonetimSistemi.Models.Entities
+@model List<Appointment>
+
+@{
+    ViewData["Title"] = "Tüm Randevular";
+}
+
+<h2>Tüm Randevular</h2>
+
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>Tarih</th>
+            <th>Saat</th>
+            <th>Üye</th>
+            <th>Eğitmen</th>
+            <th>Hizmet</th>
+            <th>Durum</th>
+            <th>Not</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.StartAt.ToString("dd.MM.yyyy")</td>
+                <td>@a.StartAt.ToString("HH:mm") - @a.EndAt.ToString("HH:mm")</td>
+                <td>@a.Member?.Email</td>
+                <td>@a.TrainerNameSnapshot</td>
+                <td>@a.ServiceNameSnapshot</td>
+                <td>@a.Status</td>
+                <td>@a.DecisionNote</td>
+            </tr>
+        }
+    </tbody>
+</table>

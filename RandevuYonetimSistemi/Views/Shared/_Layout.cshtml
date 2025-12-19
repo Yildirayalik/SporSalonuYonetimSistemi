@@ -17,21 +17,69 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Portal">Ana Sayfa</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
+                        @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin Panel</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="AdminAppointments" asp-action="Pending">Onay Bekleyenler</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="AdminAppointments" asp-action="Index">Tüm Randevular</a>
+                            </li>
+                        }
+
+                        @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Member"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Member" asp-action="Index">Üye Panel</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="MemberAppointments" asp-action="Index">Randevularım</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="UyePanel" asp-action="AiOneri">
+                                    Yapay Zeka Yardımı
+                                </a>
+                            </li>
+                        }
                     </ul>
+
+                    <!-- Sağ taraf: giriş / çıkış -->
+                    <partial name="_LoginPartial" />
                 </div>
+
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (TempData["Ok"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Ok"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            @if (TempData["Err"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Err"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
             @RenderBody()
         </main>
     </div>

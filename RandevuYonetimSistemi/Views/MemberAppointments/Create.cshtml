@@ -1,0 +1,68 @@
+﻿@model RandevuYonetimSistemi.Models.ViewModels.AppointmentCreateVm
+
+@{
+    ViewData["Title"] = "Randevu Oluştur";
+    var trainers = ViewBag.Trainers as IEnumerable<RandevuYonetimSistemi.Models.Entities.Trainer>;
+    var services = ViewBag.Services as IEnumerable<RandevuYonetimSistemi.Models.Entities.Service>;
+}
+
+<div class="container py-4" style="max-width:720px;">
+    <h3>Randevu Oluştur</h3>
+
+    @if (TempData["ok"] != null)
+    {
+        <div class="alert alert-success">@TempData["ok"]</div>
+    }
+
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+    <form method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Antrenör</label>
+                <select asp-for="TrainerId" class="form-select">
+                    <option value="">Seçiniz</option>
+                    @foreach (var t in trainers ?? Enumerable.Empty<RandevuYonetimSistemi.Models.Entities.Trainer>())
+                    {
+                        <option value="@t.Id">@t.FullName</option>
+                    }
+                </select>
+                <span asp-validation-for="TrainerId" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Hizmet</label>
+                <select asp-for="ServiceId" class="form-select">
+                    <option value="">Seçiniz</option>
+                    @foreach (var s in services ?? Enumerable.Empty<RandevuYonetimSistemi.Models.Entities.Service>())
+                    {
+                        <option value="@s.Id">@s.Name (@s.DurationMinutes dk - @s.Price ₺)</option>
+                    }
+                </select>
+                <span asp-validation-for="ServiceId" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Date" class="form-label">Tarih</label>
+                <input asp-for="Date" type="date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Time" class="form-label">Saat</label>
+                <input asp-for="Time" type="time" class="form-control" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <button class="btn btn-primary w-100" type="submit">Randevu İsteği Gönder</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

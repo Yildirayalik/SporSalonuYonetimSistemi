@@ -1,0 +1,57 @@
+﻿@using RandevuYonetimSistemi.Models.Entities
+@model List<Appointment>
+
+@{
+    ViewData["Title"] = "Onay Bekleyenler";
+}
+
+<h2>Onay Bekleyen Randevular</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Onay bekleyen randevu yok.</div>
+}
+else
+{
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Tarih</th>
+                <th>Saat</th>
+                <th>Üye</th>
+                <th>Eğitmen</th>
+                <th>Hizmet</th>
+                <th>Süre</th>
+                <th>Ücret</th>
+                <th style="width:360px;">İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.StartAt.ToString("dd.MM.yyyy")</td>
+                    <td>@a.StartAt.ToString("HH:mm") - @a.EndAt.ToString("HH:mm")</td>
+                    <td>@a.Member?.Email</td>
+                    <td>@a.TrainerNameSnapshot</td>
+                    <td>@a.ServiceNameSnapshot</td>
+                    <td>@a.DurationMinutesSnapshot dk</td>
+                    <td>@a.PriceSnapshot ₺</td>
+                    <td>
+                        <form asp-action="Approve" asp-route-id="@a.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input name="note" class="form-control form-control-sm d-inline-block" style="width:180px;" placeholder="Not (opsiyonel)" />
+                            <button class="btn btn-sm btn-success">Onayla</button>
+                        </form>
+
+                        <form asp-action="Reject" asp-route-id="@a.Id" method="post" class="d-inline ms-2">
+                            @Html.AntiForgeryToken()
+                            <input name="note" class="form-control form-control-sm d-inline-block" style="width:180px;" placeholder="Red nedeni (opsiyonel)" />
+                            <button class="btn btn-sm btn-danger">Reddet</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

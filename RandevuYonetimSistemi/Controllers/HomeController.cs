@@ -1,31 +1,27 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using RandevuYonetimSistemi.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace RandevuYonetimSistemi.Controllers;
-
-public class HomeController : Controller
+namespace RandevuYonetimSistemi.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public class HomeController : Controller
     {
-        _logger = logger;
-    }
+        // Siteye / ile girilince Portal'a yönlendir
+        public IActionResult Index()
+        {
+            return RedirectToAction(nameof(Portal));
+        }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+        // Portal: giriş seçimi ekranı
+        public IActionResult Portal()
+        {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                if (User.IsInRole("Admin"))
+                    return RedirectToAction("Index", "Admin");
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+                return RedirectToAction("Index", "Member");
+            }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
+        }
     }
 }

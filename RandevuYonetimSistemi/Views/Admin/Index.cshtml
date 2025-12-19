@@ -1,0 +1,28 @@
+﻿    @{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<div class="container py-4">
+    <h2>Admin Panel</h2>
+    <p class="text-muted">Yönetim işlemleri: Hizmetler, Antrenörler, Randevular, Onaylar.</p>
+
+    <div class="row g-3">
+        <div class="col-md-3">
+            <a class="btn btn-dark" asp-controller="Services" asp-action="Index">
+                Hizmetler
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a class="btn btn-outline-dark" asp-controller="Trainers" asp-action="Index">Antrenörler (CRUD)</a>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-outline-dark w-100" disabled>Randevular (sonraki)</button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-outline-dark w-100" disabled>Onay Bekleyenler (sonraki)</button>
+        </div>
+    </div>
+
+    <hr class="my-4" />
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="Portal">Portal’a dön</a>
+</div>

@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("RandevuYonetimSistemi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee2480ef48955db5a12ad2400c1c1a86c586d5f3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+edcee6184c2676a497c2913ef23bc072f8123a2c")]
 [assembly: System.Reflection.AssemblyProductAttribute("RandevuYonetimSistemi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RandevuYonetimSistemi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
